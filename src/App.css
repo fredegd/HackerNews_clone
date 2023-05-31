@@ -1,42 +1,84 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  background-color: antiquewhite;
+}
+
+body a{
+  font-size: 1em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color:black;
+  text-decoration: none;
+  font-weight: 100;
+}
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+  width: 90%;
+}
+.spinner-container{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spinner{
+
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+ol li{
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  height: 3em;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.postInfo{
+  font-weight: 100;
+  font-size: 0.8em;
+
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.navbar{
+  background-color: #ff6600;
+  padding: 0;
+  margin: 0;
+  line-height: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu-items{
+  width: 30px;
+  display: flex;
+flex-direction: row;
+align-items: center;
+}
+.title-and-menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  width: 10em;
+}
+.menu{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.footer{
+  margin: 3em 0;
+}
+
+@media only screen and (min-width: 750px) {
+  .title-and-menu{
+    flex-direction: row;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

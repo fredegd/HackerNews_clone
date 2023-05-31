@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
+import Navigator from "./components/Navigator";
+import PostList from "./components/PostList";
+import Pagination from "./components/Pagination";
+import Footer from "./components/Footer";
+import { SpinnerRoundOutlined } from "spinners-react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posts, setPosts] = useState([]);
+  const [query, setQuery] = useState("react");
+  const [isLoading, setIsLoading] = useState(true);
+  const[page, setPage]  = useState(0)
+  const [url, setUrl] = useState(`https://hn.algolia.com/api/v1/search?query=${query}&hitsPerPage=30&page=${page}`);
 
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(url) 
+      .then((response) => {
+        setPosts(response.data.hits);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error Fetching Posts", error);
+        setIsLoading(false);
+      });
+  }, [url]);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <Navigator />
+      {isLoading ? (
+        <div className="spinner-container">
+          <div className="spinner">
+            <SpinnerRoundOutlined />
+          </div>
+        </div>
+      ) : (
+        <>
+          <PostList posts={posts} page={page} />
+          <Pagination page={page} setPage={setPage} query={query} setUrl={setUrl} />
+          <Footer page={page} query={query} setQuery={setQuery} setUrl={setUrl} />
+        </>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
